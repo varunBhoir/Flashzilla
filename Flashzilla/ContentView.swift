@@ -10,18 +10,15 @@ import SwiftUI
 
 
 struct ContentView: View {
-    let timer = Timer.publish(every: 1, tolerance: 0.5, on: .main, in: .common).autoconnect()
-    @State private var count = 0
+    @State private var name = ""
     var body: some View {
-        Text("Varun")
-            .onReceive(timer, perform: { time in
-                if count == 5 {
-                    timer.upstream.connect().cancel()
-                } else {
-                    print("time is now \(time)")
-                }
-                count += 1
-            })
+        VStack {
+            TextField("Enter the name", text: $name)
+            Text("hwllo world")
+                .onReceive(NotificationCenter.default.publisher(for: UIResponder.keyboardDidShowNotification), perform: { _ in
+                    print("keyboard shown")
+                })
+        }
     }
 }
 
